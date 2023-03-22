@@ -11,15 +11,15 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Entity
+@Data // implementa get e set
+@NoArgsConstructor  // construtor vazio
+@AllArgsConstructor  // construtor
+@Entity  // Entidade JPA
 @Table (name="tb_alunos")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handle"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handle"})  // ignorar exceções
 public class Aluno {
 
-  @Id
+  @Id // Id JPA
   @GeneratedValue( strategy = GenerationType.IDENTITY)
   private Long id;
 
@@ -33,7 +33,7 @@ public class Aluno {
   private LocalDate dataDeNascimento;
 
   @OneToMany(mappedBy = "aluno", fetch = FetchType.LAZY)
-  @JsonIgnore
+  @JsonIgnore  // ignorar exceções
   private List<AvaliacaoFisica> avaliacoes = new ArrayList<>();
 
 }

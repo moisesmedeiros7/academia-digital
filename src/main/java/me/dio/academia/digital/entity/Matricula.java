@@ -18,6 +18,7 @@ public class Matricula {
   @Id
   @GeneratedValue( strategy = GenerationType.IDENTITY)
   private Long id;
+
   @OneToOne (cascade = CascadeType.ALL)
   @JoinColumn (name = "aluno_id")
   private Aluno aluno;
