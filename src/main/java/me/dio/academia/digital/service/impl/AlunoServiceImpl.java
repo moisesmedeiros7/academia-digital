@@ -1,6 +1,7 @@
 package me.dio.academia.digital.service.impl;
 
 import me.dio.academia.digital.entity.Aluno;
+import me.dio.academia.digital.entity.AvaliacaoFisica;
 import me.dio.academia.digital.entity.form.AlunoForm;
 import me.dio.academia.digital.entity.form.AlunoUpdateForm;
 import me.dio.academia.digital.repository.AlunoRepository;
@@ -14,7 +15,7 @@ import java.util.List;
 public class AlunoServiceImpl implements IAlunoService {
 
     @Autowired
-    private AlunoRepository repository;
+    private AlunoRepository alunoRepository;
 
     @Override
     public Aluno create(AlunoForm form) {
@@ -25,7 +26,7 @@ public class AlunoServiceImpl implements IAlunoService {
         aluno.setDataDeNascimento(form.getDataDeNascimento());
 
         //salvando aluno no BD e retornando o aluno p/ front
-        return repository.save(aluno);
+        return alunoRepository.save(aluno);
     }
 
     @Override
@@ -35,7 +36,7 @@ public class AlunoServiceImpl implements IAlunoService {
 
     @Override //retornando todos os alunos
     public List<Aluno> getAll() {
-        return repository.findAll();
+        return alunoRepository.findAll();
     }
 
     @Override
@@ -47,4 +48,13 @@ public class AlunoServiceImpl implements IAlunoService {
     public void delete(Long id) {
 
     }
+
+    @Override
+    public List<AvaliacaoFisica> getAllAvaliacaoFisicaId(Long id) {
+        Aluno aluno = alunoRepository.findById(id).get();
+        return aluno.getAvaliacoes();
+
+    }
+
+
 }
