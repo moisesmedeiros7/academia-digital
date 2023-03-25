@@ -2,10 +2,13 @@ package me.dio.academia.digital.service.impl;
 
 import me.dio.academia.digital.entity.Aluno;
 import me.dio.academia.digital.entity.AvaliacaoFisica;
+import me.dio.academia.digital.entity.Matricula;
 import me.dio.academia.digital.entity.form.AlunoForm;
 import me.dio.academia.digital.entity.form.AlunoUpdateForm;
 import me.dio.academia.digital.infra.utils.JavaTimeUtils;
 import me.dio.academia.digital.repository.AlunoRepository;
+import me.dio.academia.digital.repository.AvaliacaoFisicaRepository;
+import me.dio.academia.digital.repository.MatriculaRepository;
 import me.dio.academia.digital.service.IAlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +21,10 @@ public class AlunoServiceImpl implements IAlunoService {
 
     @Autowired
     private AlunoRepository alunoRepository;
+    @Autowired
+    private AvaliacaoFisicaRepository avaliacaoFisicaRepository;
+    @Autowired
+    private MatriculaRepository matriculaRepository;
 
     @Override
     public Aluno create(AlunoForm form) {
@@ -31,10 +38,12 @@ public class AlunoServiceImpl implements IAlunoService {
         return alunoRepository.save(aluno);
     }
 
-    @Override
+    @Override //pesquisando ALuno por ID
     public Aluno get(Long id) {
-        return null;
+        Aluno aluno = alunoRepository.getById(id);
+        return aluno;
     }
+
 
     @Override //retornando todos os alunos
     public List<Aluno> getAll(String dataDeNascimento) {
@@ -54,7 +63,8 @@ public class AlunoServiceImpl implements IAlunoService {
 
     @Override
     public void delete(Long id) {
-
+        // implementar busca se matriculas e Avaliações por aluno. Se o resultado for null delete
+        alunoRepository.deleteById(id);
     }
 
     @Override

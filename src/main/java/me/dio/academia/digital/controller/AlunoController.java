@@ -18,8 +18,6 @@ public class AlunoController {
 
     @GetMapping
     public List<Aluno> getAll(@RequestParam(value = "dataDeNascimento", required = false) String dataDeNascimento){
-
-
         return service.getAll(dataDeNascimento);
     }
 
@@ -33,5 +31,14 @@ public class AlunoController {
         return service.getAllAvaliacaoFisicaId(id);
     }
 
+    @GetMapping("/{id}") //pequisando Aluno por ID
+    public Aluno getAlunoById(@PathVariable Long id){
+        return service.get(id);
+    }
+
+    @DeleteMapping("/{id}") //deletar Aluno por ID
+    public void deleteById(@PathVariable Long id){
+        service.delete(id);
+    }
 
 }
